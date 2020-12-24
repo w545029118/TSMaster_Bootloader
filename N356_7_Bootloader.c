@@ -443,63 +443,48 @@ void on_stop_On_Stop(void) { // on stop event
     
 }
 
-// On shortcut "P" with shortcut = P
-void on_shortcut_P(const s32 AShortcut) { // on shortcut = P
-	//Select it as Programming Session
+// On shortcut "AnyKey" with shortcut = ANY
+void on_shortcut_AnyKey(const s32 AShortcut) { // on shortcut = ANY
+  //(void)AShortcut;
   s32 key = AShortcut;
-  printf("%c pressed\n", key);
   
-	printf("N356 Inch7 : Boot Mode Re-Flash Sequence Started From Programmming Session...");
-	Flashing_Sequence_Type = 1;
-	Notification_Function();
-
-}
-
-// On shortcut "E" with shortcut = E
-void on_shortcut_E(const s32 AShortcut) { // on shortcut = E
-	//Select it as Extended diagnostic Session
-  s32 key = AShortcut;
-  printf("%c pressed\n", key);
-  
-	printf("N356 Inch7 : App Mode  Re-Flash Sequence Started from Extended Diagnistic Session...");
-	Flashing_Sequence_Type = 2;
-	Notification_Function();
-}
-
-// On shortcut "Key_1" with shortcut = 1
-void on_shortcut_Key_1(const s32 AShortcut) { // on shortcut = 1
-  s32 key = AShortcut;
-  printf("%c pressed\n", key);
-  
-  if(Flashing_Sequence_Type != FALSE)
-	{
-		Flashing_Section_Type = ROM_AND_HF;
-		Start_ReFlash_Execution();
-	}
-}
-
-// On shortcut "Key_2" with shortcut = 2
-void on_shortcut_Key_2(const s32 AShortcut) { // on shortcut = 2
-  s32 key = AShortcut;
-  printf("%c pressed\n", key);
-  
-	if(Flashing_Sequence_Type != FALSE)
-	{
-		Flashing_Section_Type = ROM_ONLY;
-		Start_ReFlash_Execution();
-	}
-}
-
-// On shortcut "Key_3" with shortcut = 3
-void on_shortcut_Key_3(const s32 AShortcut) { // on shortcut = 3
-  s32 key = AShortcut;
-  printf("%c pressed\n", key);
-  
-	if(Flashing_Sequence_Type != FALSE)
-	{
-		Flashing_Section_Type = HF_ONLY;
-		Start_ReFlash_Execution();
-	}
+  switch (AShortcut)
+  {
+      case 'P':	
+           printf("N356 Inch7 : Boot Mode Re-Flash Sequence Started From Programmming Session...");
+           Flashing_Sequence_Type = 1;
+           Notification_Function();
+           break;
+      case 'E':	
+           printf("N356 Inch7 : App Mode  Re-Flash Sequence Started from Extended Diagnistic Session...");
+           Flashing_Sequence_Type = 2;
+           Notification_Function();
+           break;
+      case '1':	
+           if(Flashing_Sequence_Type != FALSE)
+           {
+               Flashing_Section_Type = ROM_AND_HF;
+               Start_ReFlash_Execution();
+           }
+           break;
+      case '2':	
+	         if(Flashing_Sequence_Type != FALSE)
+	         {
+	             Flashing_Section_Type = ROM_ONLY;
+	             Start_ReFlash_Execution();
+           }
+           break;
+      case '3':	
+	         if(Flashing_Sequence_Type != FALSE)
+	         {
+		           Flashing_Section_Type = HF_ONLY;
+	            Start_ReFlash_Execution();
+           }
+           break;    
+      default:	
+           printf("%c pressed\n", AShortcut);
+           break;         
+  }
 }
 
 // Custom Function "reflash_guide"
